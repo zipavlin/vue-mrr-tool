@@ -1,0 +1,41 @@
+{
+  "name": "@zipavlin/vue-mrr-tool",
+  "version": "1.0.1",
+  "description": "Move-resize-rotate component for Vue framework",
+  "main": "./dist/mrr-tool.common.js",
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name MrrTool ./src/MrrTool.vue",
+    "publish": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zipavlin/vue-mrr-tool.git"
+  },
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "keywords": [
+    "js",
+    "vue",
+    "component",
+    "move",
+    "resize",
+    "rotate",
+    "tool"
+  ],
+  "author": "Žiga Pavlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zipavlin/vue-mrr-tool/issues"
+  },
+  "homepage": "https://github.com/zipavlin/vue-mrr-tool#readme",
+  "devDependencies": {
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "webpack": "^4.16.0"
+  },
+  "dependencies": {
+    "hammerjs": "^2.0.8"
+  }
+}
