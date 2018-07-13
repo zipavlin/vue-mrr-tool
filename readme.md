@@ -1,6 +1,6 @@
 # Vue move-resize-rotate component
 
-Move-resize-rotate component for [Vue](https://vuejs.org/) framework. Component act's as a tool for editing other (parent) component.  
+Move-resize-rotate component for [Vue](https://vuejs.org/) framework. Component acts as a tool for editing other (parent) component.  
 It uses [hammerjs](https://hammerjs.github.io/) and supports desktop and mobile. Tested on chrome, firefox, edge and chrome mobile.
 
 ## Install
