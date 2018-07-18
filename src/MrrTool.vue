@@ -387,7 +387,7 @@
                 this.managers.push(manager);
             },
             removeListeners(manager) {
-                for (let handler of manager.handlers) {
+                for (let handler in manager.handlers) {
                     manager.remove(handler);
                 }
                 manager.destroy();
