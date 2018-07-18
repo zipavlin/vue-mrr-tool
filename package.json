@@ -1,6 +1,6 @@
 {
   "name": "@zipavlin/vue-mrr-tool",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Move-resize-rotate component for Vue framework",
   "main": "./dist/MrrTool.common.js",
   "scripts": {
