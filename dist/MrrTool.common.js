@@ -82,18 +82,101 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "dOjU");
+/******/ 	return __webpack_require__(__webpack_require__.s = "tFh3");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "KW2F":
+/***/ "CkCH":
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ "JgEj":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/vue-style-loader/lib/listToStyles.js
+// CONCATENATED MODULE: /usr/local/lib/node_modules/@vue/cli-service/node_modules/vue-style-loader/lib/listToStyles.js
 /**
  * Translates the list format produced by css-loader into something
  * easier to manipulate.
@@ -122,7 +205,7 @@ function listToStyles (parentId, list) {
   return styles
 }
 
-// CONCATENATED MODULE: C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/vue-style-loader/lib/addStylesClient.js
+// CONCATENATED MODULE: /usr/local/lib/node_modules/@vue/cli-service/node_modules/vue-style-loader/lib/addStylesClient.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addStylesClient; });
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
@@ -350,13 +433,28 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ "LajH":
+/***/ "dnTQ":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("s84h");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("JgEj").default
+var update = add("949fdc16", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
+/***/ "lvnC":
 /***/ (function(module, exports, __webpack_require__) {
 
 // This file is imported into lib/wc client bundles.
 
 if (typeof window !== 'undefined') {
-  let i
+  var i
   if ((i = window.document.currentScript) && (i = i.src.match(/(.+\/)[^/]+\.js$/))) {
     __webpack_require__.p = i[1] // eslint-disable-line
   }
@@ -365,140 +463,53 @@ if (typeof window !== 'undefined') {
 
 /***/ }),
 
-/***/ "PUzr":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "rTwY":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("TKIL");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("KW2F").default
-var update = add("e493b0c4", content, true, {"sourceMap":false,"shadowMode":false});
+"use strict";
+/* harmony import */ var _usr_local_lib_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_usr_local_lib_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_usr_local_lib_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_1dff6579_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("dnTQ");
+/* harmony import */ var _usr_local_lib_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_usr_local_lib_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_usr_local_lib_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_1dff6579_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_usr_local_lib_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_usr_local_lib_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_1dff6579_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_usr_local_lib_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_usr_local_lib_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_usr_local_lib_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_1dff6579_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "TKIL":
+/***/ "s84h":
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__("XgUJ")(false);
+exports = module.exports = __webpack_require__("CkCH")(false);
 // imports
 
 
 // module
-exports.push([module.i, ".mrr-tool[data-v-302d7bf8]{position:absolute;display:block;stroke:aqua;touch-action:none}.mrr-tool-move[data-v-302d7bf8]{cursor:move;transition:opacity .25s}.mrr-tool-resize[data-v-302d7bf8]{transition:opacity .25s}.mrr-tool-resize.resize-diagonal.nwse[data-v-302d7bf8]{cursor:nwse-resize}.mrr-tool-resize.resize-diagonal.nesw[data-v-302d7bf8]{cursor:nesw-resize}.mrr-tool-resize.resize-vertical[data-v-302d7bf8]{cursor:ns-resize}.mrr-tool-resize.resize-horizontal[data-v-302d7bf8]{cursor:ew-resize}.mrr-tool-rotate[data-v-302d7bf8]{cursor:move;transition:opacity .25s}.mrr-tool-rotate.guide[data-v-302d7bf8]{opacity:.2;stroke-dasharray:2px,6px;transition:stroke-dasharray .25s,opacity .25s}.mrr-tool-action[data-v-302d7bf8]{text-transform:uppercase;pointer-events:none}.mrr-tool[data-action=rotate] .mrr-tool-rotate.guide[data-v-302d7bf8]{opacity:.4;stroke-dasharray:2px,2px}.mrr-tool[data-action=rotate] .mrr-tool-move[data-v-302d7bf8],.mrr-tool[data-action=rotate] .mrr-tool-resize[data-v-302d7bf8]{opacity:.4}.mrr-tool[data-action=rotate][data-in-progress=true] .mrr-tool-rotate.guide[data-v-302d7bf8]{opacity:.8}.mrr-tool[data-action=rotate][data-in-progress=true] .mrr-tool-move[data-v-302d7bf8]{opacity:.2}.mrr-tool[data-action=rotate][data-in-progress=true] .mrr-tool-resize[data-v-302d7bf8]{opacity:0}.mrr-tool[data-action=move] .mrr-tool-resize[data-v-302d7bf8],.mrr-tool[data-action=move] .mrr-tool-rotate[data-v-302d7bf8]{opacity:.4}.mrr-tool[data-action=move][data-in-progress=true] .mrr-tool-resize[data-v-302d7bf8],.mrr-tool[data-action=move][data-in-progress=true] .mrr-tool-rotate[data-v-302d7bf8]:not(.guide){opacity:0}.mrr-tool[data-action=resize] .mrr-tool-move[data-v-302d7bf8],.mrr-tool[data-action=resize] .mrr-tool-rotate[data-v-302d7bf8]{opacity:.4}.mrr-tool[data-action=resize][data-in-progress=true] .mrr-tool-rotate[data-v-302d7bf8]{opacity:0}.mrr-tool[data-action=resize][data-in-progress=true] .mrr-tool-move[data-v-302d7bf8]{opacity:.2}.fade-enter-active[data-v-302d7bf8],.fade-leave-active[data-v-302d7bf8]{transition:opacity .5s}.fade-enter[data-v-302d7bf8],.fade-leave-to[data-v-302d7bf8]{opacity:0}", ""]);
+exports.push([module.i, "\n.mrr-tool[data-v-1dff6579] {\n  position: absolute;\n  display: block;\n  stroke: aqua;\n  touch-action: none;\n}\n.mrr-tool-move[data-v-1dff6579] {\n  cursor: move;\n  transition: opacity 0.25s;\n}\n.mrr-tool-resize[data-v-1dff6579] {\n  transition: opacity 0.25s;\n}\n.mrr-tool-resize.resize-diagonal.nwse[data-v-1dff6579] {\n    cursor: nwse-resize;\n}\n.mrr-tool-resize.resize-diagonal.nesw[data-v-1dff6579] {\n    cursor: nesw-resize;\n}\n.mrr-tool-resize.resize-vertical[data-v-1dff6579] {\n    cursor: ns-resize;\n}\n.mrr-tool-resize.resize-horizontal[data-v-1dff6579] {\n    cursor: ew-resize;\n}\n.mrr-tool-rotate[data-v-1dff6579] {\n  cursor: move;\n  transition: opacity 0.25s;\n}\n.mrr-tool-rotate.guide[data-v-1dff6579] {\n    opacity: 0.2;\n    stroke-dasharray: 2px, 6px;\n    transition: stroke-dasharray 0.25s, opacity 0.25s;\n}\n.mrr-tool-action[data-v-1dff6579] {\n  text-transform: uppercase;\n  pointer-events: none;\n}\n.mrr-tool[data-action=\"rotate\"] .mrr-tool-rotate.guide[data-v-1dff6579] {\n  opacity: 0.4;\n  stroke-dasharray: 2px, 2px;\n}\n.mrr-tool[data-action=\"rotate\"] .mrr-tool-move[data-v-1dff6579], .mrr-tool[data-action=\"rotate\"] .mrr-tool-resize[data-v-1dff6579] {\n  opacity: 0.4;\n}\n.mrr-tool[data-action=\"rotate\"][data-in-progress=\"true\"] .mrr-tool-rotate.guide[data-v-1dff6579] {\n  opacity: 0.8;\n}\n.mrr-tool[data-action=\"rotate\"][data-in-progress=\"true\"] .mrr-tool-move[data-v-1dff6579] {\n  opacity: 0.2;\n}\n.mrr-tool[data-action=\"rotate\"][data-in-progress=\"true\"] .mrr-tool-resize[data-v-1dff6579] {\n  opacity: 0;\n}\n.mrr-tool[data-action=\"move\"] .mrr-tool-rotate[data-v-1dff6579] {\n  opacity: 0.4;\n}\n.mrr-tool[data-action=\"move\"] .mrr-tool-resize[data-v-1dff6579] {\n  opacity: 0.4;\n}\n.mrr-tool[data-action=\"move\"][data-in-progress=\"true\"] .mrr-tool-rotate[data-v-1dff6579]:not(.guide) {\n  opacity: 0;\n}\n.mrr-tool[data-action=\"move\"][data-in-progress=\"true\"] .mrr-tool-resize[data-v-1dff6579] {\n  opacity: 0;\n}\n.mrr-tool[data-action=\"resize\"] .mrr-tool-rotate[data-v-1dff6579] {\n  opacity: 0.4;\n}\n.mrr-tool[data-action=\"resize\"] .mrr-tool-move[data-v-1dff6579] {\n  opacity: 0.4;\n}\n.mrr-tool[data-action=\"resize\"][data-in-progress=\"true\"] .mrr-tool-rotate[data-v-1dff6579] {\n  opacity: 0;\n}\n.mrr-tool[data-action=\"resize\"][data-in-progress=\"true\"] .mrr-tool-move[data-v-1dff6579] {\n  opacity: 0.2;\n}\n.fade-enter-active[data-v-1dff6579], .fade-leave-active[data-v-1dff6579] {\n  transition: opacity 0.5s;\n}\n.fade-enter[data-v-1dff6579], .fade-leave-to[data-v-1dff6579] {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "XgUJ":
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-
-/***/ "dOjU":
+/***/ "tFh3":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
-var setPublicPath = __webpack_require__("LajH");
+// EXTERNAL MODULE: /usr/local/lib/node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
+var setPublicPath = __webpack_require__("lvnC");
 
-// CONCATENATED MODULE: C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://server//www//5_PLAYGROUND//vue-mrr-tool//node_modules//.cache//vue-loader","cacheIdentifier":"02bea4b2-vue-loader-template"}!C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/vue-loader/lib??vue-loader-options!./src/MrrTool.vue?vue&type=template&id=302d7bf8&scoped=true
+// CONCATENATED MODULE: /usr/local/lib/node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"/Users/zigap/Sites/vue-mrr-tool/node_modules/.cache/vue-loader","cacheIdentifier":"f10f311e-vue-loader-template"}!/usr/local/lib/node_modules/@vue/cli-service/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!/usr/local/lib/node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!/usr/local/lib/node_modules/@vue/cli-service/node_modules/vue-loader/lib??vue-loader-options!./src/MrrTool.vue?vue&type=template&id=1dff6579&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{ref:"mrr",staticClass:"mrr-tool",style:(_vm.style),attrs:{"data-action":_vm.action,"data-in-progress":_vm.inProgress,"width":_vm.wrapWidth,"height":_vm.wrapHeight,"viewBox":_vm.viewBox}},[(_vm.mOptions.rotate)?_c('circle',{staticClass:"mrr-tool-rotate guide",attrs:{"cx":_vm.outerRadius,"cy":_vm.outerRadius,"r":_vm.outerRadius - (_vm.isMobile ? (_vm.mOptions.resizeSize) : 0)}}):_vm._e(),(_vm.isMobile && _vm.mOptions.rotate)?_c('circle',{ref:"rotateMobile",staticClass:"mrr-tool-rotate",attrs:{"cx":_vm.wrapWidth / 2 - (_vm.mOptions.strokeWidth),"cy":_vm.mOptions.resizeSize / 2 + (_vm.mOptions.strokeWidth * 2),"r":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}):_vm._e(),(_vm.mOptions.move)?_c('rect',{ref:"move",staticClass:"mrr-tool-move",attrs:{"x":_vm.paddingLeft,"y":_vm.paddingTop,"width":_vm.value.width,"height":_vm.value.height},on:{"contextmenu":_vm.onContextMenu}}):_vm._e(),(!_vm.isMobile && _vm.mOptions.resize)?_c('g',{staticClass:"mrr-tool-resize-handles"},[_c('rect',{ref:"resizeTopLeft",staticClass:"mrr-tool-resize resize-diagonal nwse top-left",attrs:{"x":_vm.paddingLeft - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}),_c('rect',{ref:"resizeTop",staticClass:"mrr-tool-resize resize-vertical top",attrs:{"x":_vm.paddingLeft + (_vm.value.width / 2) - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}),_c('rect',{ref:"resizeTopRight",staticClass:"mrr-tool-resize resize-diagonal nesw top-right",attrs:{"x":_vm.paddingLeft + _vm.value.width - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}),_c('rect',{ref:"resizeRight",staticClass:"mrr-tool-resize resize-horizontal right",attrs:{"x":_vm.paddingLeft + _vm.value.width - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop + (_vm.value.height / 2) - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}),_c('rect',{ref:"resizeBottomRight",staticClass:"mrr-tool-resize resize-diagonal nwse bottom-right",attrs:{"x":_vm.paddingLeft + _vm.value.width - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop + _vm.value.height - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}),_c('rect',{ref:"resizeBottom",staticClass:"mrr-tool-resize resize-vertical bottom",attrs:{"x":_vm.paddingLeft + (_vm.value.width / 2) - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop + _vm.value.height - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}),_c('rect',{ref:"resizeBottomLeft",staticClass:"mrr-tool-resize resize-diagonal nesw bottom-left",attrs:{"x":_vm.paddingLeft - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop + _vm.value.height - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}}),_c('rect',{ref:"resizeLeft",staticClass:"mrr-tool-resize resize-horizontal left",attrs:{"x":_vm.paddingLeft - (_vm.mOptions.resizeSize / 2),"y":_vm.paddingTop + (_vm.value.height / 2) - (_vm.mOptions.resizeSize / 2),"width":_vm.mOptions.resizeSize,"height":_vm.mOptions.resizeSize,"fill":_vm.mOptions.fill}})]):_vm._e(),(!_vm.isMobile && _vm.mOptions.rotate)?_c('g',{staticClass:"mrr-tool-rotate-handles"},[_c('circle',{ref:"rotateTopLeft",staticClass:"mrr-tool-rotate nesw top-left",attrs:{"cx":_vm.paddingLeft - _vm.mOptions.padding + _vm.mOptions.rotateSize - _vm.mOptions.strokeWidth,"cy":_vm.paddingTop - _vm.mOptions.padding + _vm.mOptions.rotateSize + _vm.mOptions.strokeWidth,"r":_vm.mOptions.rotateSize,"fill":_vm.mOptions.fill}}),_c('circle',{ref:"rotateTopRight",staticClass:"mrr-tool-rotate nwse top-right",attrs:{"cx":(_vm.paddingLeft + _vm.value.width) + _vm.mOptions.padding - _vm.mOptions.rotateSize - (_vm.mOptions.strokeWidth / 2),"cy":_vm.paddingTop - _vm.mOptions.padding + _vm.mOptions.rotateSize + (_vm.mOptions.strokeWidth / 2),"r":_vm.mOptions.rotateSize,"fill":_vm.mOptions.fill}}),_c('circle',{ref:"rotateBottomRight",staticClass:"mrr-tool-rotate nesw bottom-right",attrs:{"cx":(_vm.paddingLeft + _vm.value.width) + _vm.mOptions.padding - (_vm.mOptions.rotateSize + _vm.mOptions.strokeWidth),"cy":(_vm.paddingTop + _vm.value.height) + _vm.mOptions.padding - (_vm.mOptions.rotateSize + _vm.mOptions.strokeWidth),"r":_vm.mOptions.rotateSize,"fill":_vm.mOptions.fill}}),_c('circle',{ref:"rotateBottomLeft",staticClass:"mrr-tool-rotate nwse bottom-left",attrs:{"cx":_vm.paddingLeft - _vm.mOptions.padding + (_vm.mOptions.rotateSize + (_vm.mOptions.strokeWidth / 2)),"cy":(_vm.paddingTop + _vm.value.height) + _vm.mOptions.padding - (_vm.mOptions.rotateSize + (_vm.mOptions.strokeWidth / 2)),"r":_vm.mOptions.rotateSize,"fill":_vm.mOptions.fill}})]):_vm._e(),(_vm.mOptions.action)?_c('transition',{attrs:{"name":"fade"}},[(_vm.action !== null)?_c('text',{staticClass:"mrr-tool-action",attrs:{"text-anchor":"middle","x":_vm.wrapWidth / 2,"y":_vm.wrapHeight / 2,"dy":"7","stroke":"none","fill":_vm.mOptions.stroke}},[_vm._v(_vm._s(_vm.action))]):_vm._e()]):_vm._e()],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/MrrTool.vue?vue&type=template&id=302d7bf8&scoped=true
+// CONCATENATED MODULE: ./src/MrrTool.vue?vue&type=template&id=1dff6579&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
 var hammer = __webpack_require__("yLV6");
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
-// CONCATENATED MODULE: C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/vue-loader/lib??vue-loader-options!./src/MrrTool.vue?vue&type=script&lang=js
+// CONCATENATED MODULE: /usr/local/lib/node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!/usr/local/lib/node_modules/@vue/cli-service/node_modules/vue-loader/lib??vue-loader-options!./src/MrrTool.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -542,7 +553,7 @@ const _getAngle = (e, rect) => {
     return Math.atan2(e.clientY - center[1], e.clientX - center[0]) * 180 / Math.PI + 180;
 };
 
-/* harmony default export */ var MrrToolvue_type_script_lang_js = ({
+/* harmony default export */ var MrrToolvue_type_script_lang_js_ = ({
     name: 'MRRTool',
     props: {
         value: {
@@ -888,7 +899,7 @@ const _getAngle = (e, rect) => {
             this.managers.push(manager);
         },
         removeListeners(manager) {
-            for (let handler of manager.handlers) {
+            for (let handler in manager.handlers) {
                 manager.remove(handler);
             }
             manager.destroy();
@@ -908,12 +919,12 @@ const _getAngle = (e, rect) => {
     }
 });
 
-// CONCATENATED MODULE: ./src/MrrTool.vue?vue&type=script&lang=js
- /* harmony default export */ var src_MrrToolvue_type_script_lang_js = (MrrToolvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./src/MrrTool.vue?vue&type=style&index=0&id=302d7bf8&scoped=true&lang=scss
-var MrrToolvue_type_style_index_0_id_302d7bf8_scoped_true_lang_scss = __webpack_require__("nJO9");
+// CONCATENATED MODULE: ./src/MrrTool.vue?vue&type=script&lang=js&
+ /* harmony default export */ var src_MrrToolvue_type_script_lang_js_ = (MrrToolvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/MrrTool.vue?vue&type=style&index=0&id=1dff6579&scoped=true&lang=scss&
+var MrrToolvue_type_style_index_0_id_1dff6579_scoped_true_lang_scss_ = __webpack_require__("rTwY");
 
-// CONCATENATED MODULE: C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// CONCATENATED MODULE: /usr/local/lib/node_modules/@vue/cli-service/node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
@@ -1018,34 +1029,23 @@ function normalizeComponent (
 /* normalize component */
 
 var component = normalizeComponent(
-  src_MrrToolvue_type_script_lang_js,
+  src_MrrToolvue_type_script_lang_js_,
   render,
   staticRenderFns,
   false,
   null,
-  "302d7bf8",
+  "1dff6579",
   null
   
 )
 
 /* harmony default export */ var MrrTool = (component.exports);
-// CONCATENATED MODULE: C:/Users/zigap/AppData/Roaming/npm/node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
+// CONCATENATED MODULE: /usr/local/lib/node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
 /* harmony default export */ var entry_lib = __webpack_exports__["default"] = (MrrTool);
 
 
-
-/***/ }),
-
-/***/ "nJO9":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_302d7bf8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("PUzr");
-/* harmony import */ var _Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_302d7bf8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_302d7bf8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_css_loader_index_js_ref_8_oneOf_1_1_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_2_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_cache_loader_dist_cjs_js_ref_0_0_Users_zigap_AppData_Roaming_npm_node_modules_vue_cli_service_node_modules_vue_loader_lib_index_js_vue_loader_options_MrrTool_vue_vue_type_style_index_0_id_302d7bf8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
