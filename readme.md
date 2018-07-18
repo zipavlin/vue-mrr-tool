@@ -106,3 +106,8 @@ Triggered when edit is done with no parameters passed. This can be used for savi
 ### contextmenu
 
 Triggered on right click (mouse) or long touch (touch) on _move_ element with event object passed as only parameter.
+
+## TODO
+
+- [ ] create an example page (gitHub page)
+- [ ] add a gif showing component in use so other don't need to download it for no reason :)
